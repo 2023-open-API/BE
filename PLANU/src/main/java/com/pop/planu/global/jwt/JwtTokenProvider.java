@@ -1,11 +1,11 @@
-package com.pop.planu.member.global.jwt;
+package com.pop.planu.global.jwt;
 
 
 import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
-import com.pop.planu.member.domain.entity.Member;
+import com.pop.planu.domain.entity.Member;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Value;
 

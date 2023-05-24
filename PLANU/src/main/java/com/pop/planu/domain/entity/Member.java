@@ -1,4 +1,4 @@
-package com.pop.planu.member.domain.entity;
+package com.pop.planu.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

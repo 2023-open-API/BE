@@ -1,4 +1,4 @@
-package com.pop.planu.member.global.config;
+package com.pop.planu.global.config;
 
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

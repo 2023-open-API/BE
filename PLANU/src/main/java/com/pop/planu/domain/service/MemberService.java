@@ -1,16 +1,16 @@
-package com.pop.planu.member.domain.service;
+package com.pop.planu.domain.service;
 
 
-import com.pop.planu.member.domain.controller.request.SignUpRequest;
-import com.pop.planu.member.domain.repository.MemberRepository;
-import com.pop.planu.member.global.jwt.JwtTokenProvider;
+import com.pop.planu.domain.controller.request.SignUpRequest;
+import com.pop.planu.domain.repository.MemberRepository;
+import com.pop.planu.global.jwt.JwtTokenProvider;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import com.pop.planu.member.domain.entity.Member;
-import com.pop.planu.member.global.dto.TokenDto;
-import com.pop.planu.member.global.exception.PasswordMismatchException;
-import com.pop.planu.member.global.exception.StudentIdDuplicatedException;
-import com.pop.planu.member.global.exception.StudentIdFoundException;
+import com.pop.planu.domain.entity.Member;
+import com.pop.planu.global.dto.TokenDto;
+import com.pop.planu.global.exception.PasswordMismatchException;
+import com.pop.planu.global.exception.StudentIdDuplicatedException;
+import com.pop.planu.global.exception.StudentIdFoundException;
 import org.springframework.stereotype.Service;
 
 @Service

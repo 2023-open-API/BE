@@ -1,6 +1,6 @@
-package com.pop.planu.member.domain.repository;
+package com.pop.planu.domain.repository;
 
-import com.pop.planu.member.domain.entity.Member;
+import com.pop.planu.domain.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;

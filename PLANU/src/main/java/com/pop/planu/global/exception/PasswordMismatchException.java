@@ -1,4 +1,4 @@
-package com.pop.planu.member.global.exception;
+package com.pop.planu.global.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

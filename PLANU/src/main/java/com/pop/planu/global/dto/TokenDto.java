@@ -1,4 +1,4 @@
-package com.pop.planu.member.global.dto;
+package com.pop.planu.global.dto;
 
 import lombok.*;
 

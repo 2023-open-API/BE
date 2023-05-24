@@ -1,12 +1,11 @@
-package com.pop.planu.member.global.exception.handler;
+package com.pop.planu.global.exception.handler;
 
-import com.pop.planu.member.global.exception.StudentIdDuplicatedException;
+import com.pop.planu.global.exception.StudentIdFoundException;
+import com.pop.planu.global.exception.StudentIdDuplicatedException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import com.pop.planu.member.global.exception.StudentIdDuplicatedException;
-import com.pop.planu.member.global.exception.PasswordMismatchException;
-import com.pop.planu.member.global.exception.StudentIdFoundException;
+import com.pop.planu.global.exception.PasswordMismatchException;
 
 @RestControllerAdvice
 public class ErrorHandler {

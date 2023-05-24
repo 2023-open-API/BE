@@ -1,11 +1,10 @@
-package com.pop.planu.member.domain.controller;
+package com.pop.planu.domain.controller;
 
-import com.pop.planu.member.domain.controller.request.LoginRequest;
-import com.pop.planu.member.domain.controller.request.SignUpRequest;
-import com.pop.planu.member.domain.service.MemberService;
-import com.pop.planu.member.global.dto.TokenDto;
+import com.pop.planu.domain.controller.request.LoginRequest;
+import com.pop.planu.domain.controller.request.SignUpRequest;
+import com.pop.planu.domain.service.MemberService;
+import com.pop.planu.global.dto.TokenDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

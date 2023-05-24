@@ -1,4 +1,4 @@
-package com.pop.planu.member.global.exception.handler;
+package com.pop.planu.global.exception.handler;
 
 import lombok.*;
 
