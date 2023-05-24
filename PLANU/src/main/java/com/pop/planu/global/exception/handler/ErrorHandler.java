@@ -1,5 +1,6 @@
 package com.pop.planu.global.exception.handler;
 
+import com.pop.planu.global.exception.FailedAuthenticationException;
 import com.pop.planu.global.exception.StudentIdFoundException;
 import com.pop.planu.global.exception.StudentIdDuplicatedException;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,12 @@ public class ErrorHandler {
 
     @ExceptionHandler(StudentIdFoundException.class)
     public ResponseEntity<ErrorMessage> studentIdFoundException(StudentIdFoundException e){
+        return ResponseEntity.status(e.getStatus())
+                .body(ErrorMessageFactory.from(e.getStatus(),e.getErrorCode(),e.getErrorMessage()));
+    }
+
+    @ExceptionHandler(FailedAuthenticationException.class)
+    public ResponseEntity<ErrorMessage> failedAuthenticationException(FailedAuthenticationException e){
         return ResponseEntity.status(e.getStatus())
                 .body(ErrorMessageFactory.from(e.getStatus(),e.getErrorCode(),e.getErrorMessage()));
     }
