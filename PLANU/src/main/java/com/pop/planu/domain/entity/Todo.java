@@ -28,4 +28,10 @@ public class Todo {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    public void update(String title, String subscription, LocalDate date) {
+        this.title = title;
+        this.subscription = subscription;
+        this.date = date;
+    }
 }

@@ -1,12 +1,9 @@
 package com.pop.planu.global.exception.handler;
 
-import com.pop.planu.global.exception.FailedAuthenticationException;
-import com.pop.planu.global.exception.StudentIdFoundException;
-import com.pop.planu.global.exception.StudentIdDuplicatedException;
+import com.pop.planu.global.exception.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import com.pop.planu.global.exception.PasswordMismatchException;
 
 @RestControllerAdvice
 public class ErrorHandler {
@@ -25,6 +22,12 @@ public class ErrorHandler {
 
     @ExceptionHandler(StudentIdFoundException.class)
     public ResponseEntity<ErrorMessage> studentIdFoundException(StudentIdFoundException e){
+        return ResponseEntity.status(e.getStatus())
+                .body(ErrorMessageFactory.from(e.getStatus(),e.getErrorCode(),e.getErrorMessage()));
+    }
+
+    @ExceptionHandler(IdNotFoundException.class)
+    public ResponseEntity<ErrorMessage> idNotFoundException(IdNotFoundException e){
         return ResponseEntity.status(e.getStatus())
                 .body(ErrorMessageFactory.from(e.getStatus(),e.getErrorCode(),e.getErrorMessage()));
     }
