@@ -27,7 +27,7 @@ spring:
         default_batch_fetch_size: 100
 
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 
   profiles:
     active: local, jwt
