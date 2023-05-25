@@ -1,7 +1,7 @@
 package com.pop.planu.domain.service;
 
 
-import com.pop.planu.domain.controller.request.SignUpRequest;
+import com.pop.planu.domain.controller.request.member.SignUpRequest;
 import com.pop.planu.domain.repository.MemberRepository;
 import com.pop.planu.global.jwt.JwtTokenProvider;
 import jakarta.transaction.Transactional;

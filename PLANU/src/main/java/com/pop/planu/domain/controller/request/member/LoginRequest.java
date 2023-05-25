@@ -1,4 +1,4 @@
-package com.pop.planu.domain.controller.request;
+package com.pop.planu.domain.controller.request.member;
 
 
 import lombok.*;
