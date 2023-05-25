@@ -35,7 +35,7 @@ public class JwtTokenProvider {
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + Duration.ofMinutes(expirationTime).toMillis()))
-                .claim("id", member.getId())
+                .claim("id", member.getMemberId())
                 .claim("studentId", member.getStudentId())
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
