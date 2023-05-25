@@ -4,6 +4,8 @@ package com.pop.planu.domain.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @Setter
@@ -23,15 +25,15 @@ public class Schedule {
     private String title;
 
     @Column(name="startDate")
-    private String startDate;
+    private LocalDate startDate;
 
     @Column(name="endDate")
-    private String endDate;
+    private LocalDate endDate;
 
     @Column(name="color")
     private String color;
 
-    public void update(String title, String startDate, String endDate, String color){
+    public void update(String title, LocalDate startDate, LocalDate endDate, String color){
         this.title =title;
         this.startDate = startDate;
         this.endDate = endDate;
