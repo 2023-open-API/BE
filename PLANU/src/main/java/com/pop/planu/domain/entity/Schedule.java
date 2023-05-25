@@ -12,17 +12,30 @@ import lombok.*;
 @Builder
 public class Schedule {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="schedule_id")
-    private long schedule_id;
+    @Column(name="scheduleId")
+    private long scheduleId;
 
-    @ManyToOne(targetEntity = Member.class)
-    @JoinColumn(name = "member_id", referencedColumnName = "member_id")
-    private Long memberId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
+    @Column(name="title")
     private String title;
+
+    @Column(name="startDate")
     private String startDate;
+
+    @Column(name="endDate")
     private String endDate;
+
+    @Column(name="color")
     private String color;
 
+    public void update(String title, String startDate, String endDate, String color){
+        this.title =title;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.color = color;
+    }
 
 }
