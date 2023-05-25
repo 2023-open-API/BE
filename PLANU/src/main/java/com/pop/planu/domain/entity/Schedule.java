@@ -17,7 +17,7 @@ public class Schedule {
 
     @ManyToOne(targetEntity = Member.class)
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
-    private Long id;
+    private Long memberId;
 
     private String title;
     private String startDate;
