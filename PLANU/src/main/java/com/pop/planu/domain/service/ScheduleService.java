@@ -61,4 +61,23 @@ public class ScheduleService {
 
     }
 
+    @Transactional
+    public ScheduleResponse update(ScheduleDto scheduleDto){
+        Schedule schedule = scheduleRepository.findById(scheduleDto.getScheduleId())
+                .orElseThrow(()->new IdNotFoundException("일정 정보가 없습니다."));
+        schedule.update(scheduleDto.getTitle(),scheduleDto.getStartDate(),scheduleDto.getEndDate(),scheduleDto.getColor());
+        return ScheduleResponse.builder()
+                .scheduleId(schedule.getScheduleId())
+                .title(schedule.getTitle())
+                .color(schedule.getColor())
+                .startDate(schedule.getStartDate().toString())
+                .endDate(schedule.getEndDate().toString())
+                .build();
+    }
+
+    public Long delete(Long scheduleId){
+        scheduleRepository.deleteById(scheduleId);
+        return scheduleId;
+    }
+
 }
