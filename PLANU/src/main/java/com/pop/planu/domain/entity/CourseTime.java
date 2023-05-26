@@ -17,7 +17,7 @@ public class CourseTime {
     @Column(name = "courseTimeId")
     private Long id;
 
-    @Column(name = "day")
+    @Column(name = "dayOfTheWeek")
     private String day;
 
     @Column(name = "startTime")

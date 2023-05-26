@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,13 +30,22 @@ public class ApplicationCourse {
     @Column(name = "professor", nullable = false)
     private String professor;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "memberId")
+    private Member member;
+
     @OneToMany(mappedBy = "applicationCourse", cascade = CascadeType.ALL)
     private List<CourseTime> courseTimeList;
 
     public void setCourseTimeList(List<CourseTime> courseTimeList) {
+        this.courseTimeList = new ArrayList<>();
         for(CourseTime ct: courseTimeList) {
             ct.setApplicationCourse(this);
             this.courseTimeList.add(ct);
         }
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
     }
 }
