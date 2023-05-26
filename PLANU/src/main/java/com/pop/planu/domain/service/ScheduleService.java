@@ -61,6 +61,18 @@ public class ScheduleService {
 
     }
 
+    public ScheduleResponse getScheduleById(Long scheduleId){
+        Schedule schedule = scheduleRepository.findById(scheduleId)
+                .orElseThrow(()->new IdNotFoundException("일정 정보가 없습니다."));
+        return ScheduleResponse.builder()
+                .scheduleId(schedule.getScheduleId())
+                .title(schedule.getTitle())
+                .color(schedule.getColor())
+                .startDate(schedule.getStartDate().toString())
+                .endDate(schedule.getEndDate().toString())
+                .build();
+    }
+
     @Transactional
     public ScheduleResponse update(ScheduleDto scheduleDto){
         Schedule schedule = scheduleRepository.findById(scheduleDto.getScheduleId())
