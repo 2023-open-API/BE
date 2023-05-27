@@ -11,5 +11,6 @@ import java.util.List;
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 
-    List<Schedule> findByStartDateLessThanEqualAndEndDateGreaterThanEqualAndMemberId(@Param("memberId") Long memberId, @Param("startDate") LocalDate startOfMonth, @Param("endDate")LocalDate endOfMonth);
+    List<Schedule> findByStartDateLessThanEqualAndEndDateLessThanEqualAndMemberId( @Param("startDate") LocalDate startOfMonth, @Param("endDate")LocalDate endOfMonth, @Param("memberId") Long memberId);
+    List<Schedule> findByStartDateGreaterThanEqualAndEndDateLessThanEqualAndMemberId( @Param("startDate") LocalDate startOfMonth, @Param("endDate")LocalDate endOfMonth, @Param("memberId") Long memberId);
 }

@@ -28,7 +28,7 @@ public class ScheduleRequest {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate endDate;
 
-    public ScheduleDto scheduleDto(Long memberId){
+    public ScheduleDto toDto(Long memberId){
         return ScheduleDto.builder()
                 .memberId(memberId)
                 .title(this.title)
@@ -38,7 +38,7 @@ public class ScheduleRequest {
                 .build();
     }
 
-    public ScheduleDto scheduleDto(Long memberId, Long scheduleId){
+    public ScheduleDto toDto(Long memberId, Long scheduleId){
         return ScheduleDto.builder()
                 .memberId(memberId)
                 .scheduleId(scheduleId)

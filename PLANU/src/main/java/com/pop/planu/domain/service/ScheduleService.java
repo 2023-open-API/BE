@@ -39,11 +39,20 @@ public class ScheduleService {
     public List<ScheduleResponse> getMonthlySchedule(Long memberId, LocalDate monthDate){
         LocalDate startOfMonth = monthDate.withDayOfMonth(1);
         LocalDate endOfMonth = monthDate.withDayOfMonth(1).plusMonths(1).minusDays(1);
-        List<Schedule> scheduleList = scheduleRepository
-                .findByStartDateLessThanEqualAndEndDateGreaterThanEqualAndMemberId(
-                memberId, startOfMonth, endOfMonth);
-        List<ScheduleResponse> scheduleResponsesList = new ArrayList<>();
 
+        List<Schedule> scheduleList_SLTELTE = scheduleRepository
+                .findByStartDateLessThanEqualAndEndDateLessThanEqualAndMemberId(
+                        startOfMonth, endOfMonth,memberId);
+        List<Schedule> scheduleList_SGTEETE = scheduleRepository
+                .findByStartDateGreaterThanEqualAndEndDateLessThanEqualAndMemberId(
+                        startOfMonth, endOfMonth,memberId);
+        List<Schedule> scheduleList = new ArrayList<>();
+
+        scheduleList.addAll(scheduleList_SLTELTE);
+        scheduleList.addAll(scheduleList_SGTEETE);
+
+
+        List<ScheduleResponse> scheduleResponsesList = new ArrayList<>();
         scheduleList.forEach(
                 (schedule -> {
                     scheduleResponsesList.add(
@@ -59,6 +68,18 @@ public class ScheduleService {
         );
         return scheduleResponsesList;
 
+    }
+
+    public ScheduleResponse getScheduleById(Long scheduleId){
+        Schedule schedule = scheduleRepository.findById(scheduleId)
+                .orElseThrow(()->new IdNotFoundException("일정 정보가 없습니다."));
+        return ScheduleResponse.builder()
+                .scheduleId(schedule.getScheduleId())
+                .title(schedule.getTitle())
+                .color(schedule.getColor())
+                .startDate(schedule.getStartDate().toString())
+                .endDate(schedule.getEndDate().toString())
+                .build();
     }
 
     @Transactional
