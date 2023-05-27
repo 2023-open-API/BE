@@ -31,6 +31,7 @@ public class CourseRequest {
     private List<CourseTimeRequest> courseTimeRequests;
 
     public CourseDto toDto(){
+        System.out.println("code = " + code);
         List<CourseTimeDto> courseTimeDtos = new ArrayList<>();
         for(CourseTimeRequest courseTimeRequest: this.courseTimeRequests) {
             courseTimeDtos.add(courseTimeRequest.toDto());

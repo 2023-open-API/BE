@@ -32,6 +32,18 @@ spring:
   profiles:
     active: local, jwt
 
+springdoc:
+  packages-to-scan: com.pop.planu
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+  swagger-ui:
+    path: /swagger-ui
+    disable-swagger-default-url: true
+    display-request-duration: true
+    operations-sorter: alpha
+  api-docs:
+    path: /api-docs
+
 jwt:
   secret: 'hello-openAPI-hello-princesses-secret-key'
   expiration-time: 30 # 30분
