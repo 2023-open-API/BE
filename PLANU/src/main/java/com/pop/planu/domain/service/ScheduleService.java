@@ -39,11 +39,20 @@ public class ScheduleService {
     public List<ScheduleResponse> getMonthlySchedule(Long memberId, LocalDate monthDate){
         LocalDate startOfMonth = monthDate.withDayOfMonth(1);
         LocalDate endOfMonth = monthDate.withDayOfMonth(1).plusMonths(1).minusDays(1);
-        List<Schedule> scheduleList = scheduleRepository
-                .findByStartDateLessThanEqualAndEndDateGreaterThanEqualAndMemberId(
-                memberId, startOfMonth, endOfMonth);
-        List<ScheduleResponse> scheduleResponsesList = new ArrayList<>();
 
+        List<Schedule> scheduleList_SLTELTE = scheduleRepository
+                .findByStartDateLessThanEqualAndEndDateLessThanEqualAndMemberId(
+                        startOfMonth, endOfMonth,memberId);
+        List<Schedule> scheduleList_SGTEETE = scheduleRepository
+                .findByStartDateGreaterThanEqualAndEndDateLessThanEqualAndMemberId(
+                        startOfMonth, endOfMonth,memberId);
+        List<Schedule> scheduleList = new ArrayList<>();
+
+        scheduleList.addAll(scheduleList_SLTELTE);
+        scheduleList.addAll(scheduleList_SGTEETE);
+
+
+        List<ScheduleResponse> scheduleResponsesList = new ArrayList<>();
         scheduleList.forEach(
                 (schedule -> {
                     scheduleResponsesList.add(

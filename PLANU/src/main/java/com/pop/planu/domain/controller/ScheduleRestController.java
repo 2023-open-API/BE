@@ -32,27 +32,27 @@ public class ScheduleRestController {
     }
 
 
-    @GetMapping("/schedule/{currentDate}")
+    @GetMapping("/schedule/month/{currentDate}")
     public ResponseEntity<List<ScheduleResponse>> getMonthlySchedule(@Auth AuthMember authMember, @PathVariable LocalDate currentDate){
         List<ScheduleResponse> scheduleResponseList = scheduleService.getMonthlySchedule(authMember.getId(), currentDate);
         return ResponseEntity.ok(scheduleResponseList);
     }
 
-    @GetMapping("/schedule/{schedulId}")
+    @GetMapping("/schedule/{scheduleId}")
     public ResponseEntity<ScheduleResponse> getSchedule(@Auth AuthMember authMember, @PathVariable Long scheduleId){
         ScheduleResponse scheduleResponse = scheduleService.getScheduleById(scheduleId);
         return ResponseEntity.ok(scheduleResponse);
     }
 
-    @PutMapping("/schedule/{schedulId}")
+    @PutMapping("/schedule/{scheduleId}")
     public ResponseEntity<ScheduleResponse> updateSchedule(@Auth AuthMember authMember,@PathVariable Long scheduleId, @RequestBody ScheduleRequest scheduleRequest){
         ScheduleResponse updateSchedule = scheduleService.update(scheduleRequest.toDto(authMember.getId(),scheduleId));
         return ResponseEntity.ok(updateSchedule);
     }
 
-    @DeleteMapping("/schedule/{schedulId}")
-    public ResponseEntity<Long> deleteSchedule(@Auth AuthMember authMember,@PathVariable Long schedulId){
-        Long deleteId = scheduleService.delete(schedulId);
+    @DeleteMapping("/schedule/{scheduleId}")
+    public ResponseEntity<Long> deleteSchedule(@Auth AuthMember authMember,@PathVariable Long scheduleId){
+        Long deleteId = scheduleService.delete(scheduleId);
         return ResponseEntity.ok(deleteId);
     }
 
