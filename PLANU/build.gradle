@@ -34,6 +34,11 @@ dependencies {
     implementation  'io.jsonwebtoken:jjwt-api:0.10.7'
     implementation  'io.jsonwebtoken:jjwt-impl:0.10.7'
     implementation  'io.jsonwebtoken:jjwt-jackson:0.10.7'
+
+    // Swagger
+//    implementation 'org.springdoc:springdoc-openapi-ui:1.6.11'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+//    implementation 'org.springdoc:springdoc-openapi-security:1.7.0'
 }
 
 tasks.named('test') {
