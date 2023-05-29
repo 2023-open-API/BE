@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CourseRequest {
+public class ApplicationCourseRequest {
 
     @NotNull
     private Long code;
@@ -23,7 +23,6 @@ public class CourseRequest {
     @NotBlank
     private String name;
 
-    @NotBlank
     private String professor;
 
     @Valid
