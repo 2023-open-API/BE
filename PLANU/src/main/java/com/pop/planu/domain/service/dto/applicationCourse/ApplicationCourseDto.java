@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CourseDto {
+public class ApplicationCourseDto {
 
     private Long code;
 
