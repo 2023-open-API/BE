@@ -6,19 +6,19 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalTime;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class CourseTimeDto {
 
-    private Long applicationCourseId;
-
     private String day;
 
-    private Long startTime;
+    private LocalTime startTime;
 
-    private Long endTime;
+    private LocalTime endTime;
 
     public CourseTime toEntity() {
         return CourseTime.builder()
