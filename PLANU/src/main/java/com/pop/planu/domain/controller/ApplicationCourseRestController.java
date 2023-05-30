@@ -1,12 +1,11 @@
 package com.pop.planu.domain.controller;
 
 import com.pop.planu.domain.auth.AuthMember;
-import com.pop.planu.domain.controller.request.applicationCourse.CourseRequest;
-import com.pop.planu.domain.controller.response.applicationCourse.CourseResponse;
+import com.pop.planu.domain.controller.request.applicationCourse.ApplicationCourseRequest;
+import com.pop.planu.domain.controller.response.applicationCourse.ApplicationCourseResponse;
 import com.pop.planu.domain.service.ApplicationCourseService;
 import com.pop.planu.global.web.argumentresolver.Auth;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.utils.SpringDocUtils;
@@ -29,8 +28,8 @@ public class ApplicationCourseRestController {
 
     @PostMapping("/applicationCourse")
     @Operation(summary = "시간표 강의 저장", description = "시간표에 추가할 강의 정보를 저장합니다.")
-    private ResponseEntity<URI> save(@Auth AuthMember authMember, @RequestBody CourseRequest courseRequest) {
-        Long courseId = applicationCourseService.save(authMember.getId(), courseRequest.toDto());
+    private ResponseEntity<URI> save(@Auth AuthMember authMember, @RequestBody ApplicationCourseRequest applicationCourseRequest) {
+        Long courseId = applicationCourseService.save(authMember.getId(), applicationCourseRequest.toDto());
 
         URI uri = UriComponentsBuilder.fromPath("/applicationCourse/{courseId}")
                 .buildAndExpand(courseId)
@@ -41,16 +40,16 @@ public class ApplicationCourseRestController {
 
     @GetMapping("/applicationCourse")
     @Operation(summary = "시간표 강의 조회", description = "멤버별 시간표의 강의 목록을 조회합니다.")
-    private ResponseEntity<List<CourseResponse>> getAllApplicationCourseByMemberId(@Auth AuthMember authMember){
-        List<CourseResponse> courseResponses = applicationCourseService.getAllApplicationCourseByMemberId(authMember.getId());
-        return ResponseEntity.ok(courseResponses);
+    private ResponseEntity<List<ApplicationCourseResponse>> getAllApplicationCourseByMemberId(@Auth AuthMember authMember){
+        List<ApplicationCourseResponse> applicationCourseRespons = applicationCourseService.getAllApplicationCourseByMemberId(authMember.getId());
+        return ResponseEntity.ok(applicationCourseRespons);
     }
 
     @GetMapping("/applicationCourse/{courseId}")
     @Operation(summary = "시간표 특정 강의 조회", description = "시간표 강의 중 특정 강의 정보를 조회합니다.")
-    private ResponseEntity<CourseResponse> getApplicationCourseById(@Auth AuthMember authMember, @PathVariable Long courseId){
-        CourseResponse courseResponse = applicationCourseService.getApplicationCourseById(courseId);
-        return ResponseEntity.ok(courseResponse);
+    private ResponseEntity<ApplicationCourseResponse> getApplicationCourseById(@Auth AuthMember authMember, @PathVariable Long courseId){
+        ApplicationCourseResponse applicationCourseResponse = applicationCourseService.getApplicationCourseById(courseId);
+        return ResponseEntity.ok(applicationCourseResponse);
     }
 
     @DeleteMapping("/applicationCourse/{courseId}")

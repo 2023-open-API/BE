@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CourseResponse {
+public class ApplicationCourseResponse {
     private Long applicationCourseId;
     private Long code;
     private String name;

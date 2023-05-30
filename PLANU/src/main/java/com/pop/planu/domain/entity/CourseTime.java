@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalTime;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -21,10 +23,10 @@ public class CourseTime {
     private String day;
 
     @Column(name = "startTime")
-    private Long startTime;
+    private LocalTime startTime;
 
     @Column(name= "endTime")
-    private Long endTime;
+    private LocalTime endTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "applicationCourseId")

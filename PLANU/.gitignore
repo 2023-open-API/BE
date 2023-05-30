@@ -35,3 +35,8 @@ out/
 
 ### VS Code ###
 .vscode/
+
+
+### additional ###
+/src/main/resources/application-cnu.yml
+/src/main/resources/application-jwt.yml
