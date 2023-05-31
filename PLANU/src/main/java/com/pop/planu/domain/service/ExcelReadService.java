@@ -3,11 +3,13 @@ package com.pop.planu.domain.service;
 import com.pop.planu.domain.controller.response.CourseProcess.CourseResponse;
 import com.pop.planu.domain.service.dto.CourseProcess.ExcelDto;
 import com.pop.planu.domain.service.dto.applicationCourse.CourseTimeDto;
+import nonapi.io.github.classgraph.utils.FileUtils;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,10 +34,20 @@ public class ExcelReadService {
         return basic_path+year+"-"+semester+extension;
     }
 
+    private String getFileName(Long year, Long semester) {
+        return year+"-"+semester;
+    }
+
+    private String getExtension() {
+        return this.extension;
+    }
+
     public Map<String, ExcelDto> read(Long year, Long semester) throws IOException, URISyntaxException {
-        File f = new ClassPathResource(getFilePath(year, semester)).getFile();
-        FileInputStream file = new FileInputStream(f);
-        XSSFWorkbook workbook = new XSSFWorkbook(file);
+        InputStream inputStream = new ClassPathResource(getFilePath(year, semester)).getInputStream();
+//        File f = File.createTempFile(getFileName(year, semester), getExtension());
+//        FileCopyUtils.copy
+//        FileInputStream file = new FileInputStream(f);
+        XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
 
         Map<String, ExcelDto> data = new HashMap<>();
         XSSFSheet sheet = workbook.getSheetAt(0);
