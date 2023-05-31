@@ -6,11 +6,13 @@ import com.pop.planu.domain.service.dto.applicationCourse.CourseTimeDto;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.LocalTime;
@@ -31,8 +33,7 @@ public class ExcelReadService {
     }
 
     public Map<String, ExcelDto> read(Long year, Long semester) throws IOException, URISyntaxException {
-        URL url = this.getClass().getClassLoader().getResource(getFilePath(year, semester));
-        File f = new File(url.toURI());
+        File f = new ClassPathResource(getFilePath(year, semester)).getFile();
         FileInputStream file = new FileInputStream(f);
         XSSFWorkbook workbook = new XSSFWorkbook(file);
 
