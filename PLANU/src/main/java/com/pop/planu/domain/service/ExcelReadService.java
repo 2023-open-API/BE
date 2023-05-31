@@ -44,9 +44,6 @@ public class ExcelReadService {
 
     public Map<String, ExcelDto> read(Long year, Long semester) throws IOException, URISyntaxException {
         InputStream inputStream = new ClassPathResource(getFilePath(year, semester)).getInputStream();
-//        File f = File.createTempFile(getFileName(year, semester), getExtension());
-//        FileCopyUtils.copy
-//        FileInputStream file = new FileInputStream(f);
         XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
 
         Map<String, ExcelDto> data = new HashMap<>();
