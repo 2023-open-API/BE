@@ -17,7 +17,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = false)
 public class TodoService {
     private final TodoRepository todoRepository;
     private final MemberRepository memberRepository;

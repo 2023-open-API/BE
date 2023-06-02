@@ -18,7 +18,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-@Transactional
+@Transactional(readOnly = false)
 public class ApplicationCourseService {
 
     private final ApplicationCourseRepository applicationCourseRepository;

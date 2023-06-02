@@ -4,7 +4,6 @@ package com.pop.planu.domain.service;
 import com.pop.planu.domain.controller.request.member.SignUpRequest;
 import com.pop.planu.domain.repository.MemberRepository;
 import com.pop.planu.global.jwt.JwtTokenProvider;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import com.pop.planu.domain.entity.Member;
 import com.pop.planu.global.dto.TokenDto;
@@ -12,15 +11,18 @@ import com.pop.planu.global.exception.PasswordMismatchException;
 import com.pop.planu.global.exception.StudentIdDuplicatedException;
 import com.pop.planu.global.exception.StudentIdFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = false)
 public class MemberService {
 
     private final MemberRepository memberRepository;
 
     private final JwtTokenProvider jwtTokenProvider;
+
+    @Transactional
     public Long signUp(SignUpRequest signUpRequest){
         checkDuplicateStudentId(signUpRequest.getStudentId());
 
