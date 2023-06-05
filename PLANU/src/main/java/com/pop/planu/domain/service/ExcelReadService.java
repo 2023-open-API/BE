@@ -73,14 +73,14 @@ public class ExcelReadService {
         }
         String[] times = str.split(", ");
         for(int i=0; i< times.length; i++) {
-            String day = times[0].substring(0,1);
+            String day = times[i].substring(0,1);
             String[] date;
             // 강의실 데이터 분리
-            if(times[0].indexOf('(') == -1) {
-                date= times[0].substring(1).split("~");
+            if(times[i].indexOf('(') == -1) {
+                date= times[i].substring(1).split("~");
             }
             else {
-                date= times[0].substring(1, times[0].indexOf('(')).split("~");
+                date= times[i].substring(1, times[i].indexOf('(')).split("~");
             }
             CourseTimeDto courseTimeDto = CourseTimeDto.builder()
                     .day(day)
