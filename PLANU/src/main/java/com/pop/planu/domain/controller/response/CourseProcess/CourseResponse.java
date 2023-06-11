@@ -19,5 +19,6 @@ public class CourseResponse {
     private String name;
     private String professor;
     private Double credit;
+    private String department;
     private List<CourseTimeResponse> courseTimeResponses;
 }

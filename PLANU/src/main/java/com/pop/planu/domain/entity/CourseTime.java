@@ -28,6 +28,9 @@ public class CourseTime {
     @Column(name= "endTime")
     private LocalTime endTime;
 
+    @Column(name = "location")
+    private String location;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "applicationCourseId")
     private ApplicationCourse applicationCourse;
