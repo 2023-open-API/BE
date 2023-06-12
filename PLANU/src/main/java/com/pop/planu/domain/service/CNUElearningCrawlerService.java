@@ -24,7 +24,7 @@ public class CNUElearningCrawlerService {
 
     //Properties
     public static final String WEB_DRIVER_ID = "webdriver.chrome.driver";
-    public static final String WEB_DRIVER_PATH = "C:/Users/MIRAE/CNU_LectureMaterial/2023/2023 CNU 공공데이터 경진대회/repos/selenium/chromedriver_win32/chromedriver.exe";
+    public static final String WEB_DRIVER_PATH = "chromedriver";
 
     //크롤링 할 URL
     private String base_url;
