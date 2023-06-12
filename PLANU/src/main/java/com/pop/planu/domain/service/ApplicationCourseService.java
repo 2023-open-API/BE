@@ -67,7 +67,9 @@ public class ApplicationCourseService {
             CourseTimeResponse courseTimeResponse = CourseTimeResponse.builder()
                     .day(courseTime.getDay())
                     .startTime(courseTime.getStartTime())
-                    .endTime(courseTime.getEndTime()).build();
+                    .endTime(courseTime.getEndTime())
+                    .location(courseTime.getLocation())
+                    .build();
             courseTimeResponses.add(courseTimeResponse);
         }
         return courseTimeResponses;

@@ -25,10 +25,13 @@ public class CourseTimeRequest {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm", timezone = "Asia/Seoul")
     private LocalTime endTime;
 
+    private String location;
+
     public CourseTimeDto toDto() {
         return CourseTimeDto.builder()
                 .day(this.day)
                 .startTime(this.startTime)
-                .endTime(this.endTime).build();
+                .endTime(this.endTime)
+                .location(this.location).build();
     }
 }

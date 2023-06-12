@@ -11,6 +11,7 @@ import org.json.simple.parser.ParseException;
 import com.pop.planu.domain.service.dto.CourseProcess.CourseDto;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,41 @@ public class CourseProcessService {
     private final CNUSyllabusAPI cnuSyllabusAPI;
     private final ExcelReadService excelReadService;
 
-    public List<CourseResponse> getAllCourseByYearAndSemester(Long year, Long semester) throws ParseException, IOException, URISyntaxException {
+    public List<CourseResponse> getAllCourseByYearAndSemester(Long year, Long semester) throws ParseException, UnsupportedEncodingException {
+        // 강의계획 open api 결과
+        List<CourseDto> courseDtos = cnuSyllabusAPI.getCourseList(year, semester);
+        System.out.println("courseDtos.size = " + courseDtos.size());
+
+        // 공통 결과 매칭
+        List<CourseResponse> courseResponses = new ArrayList<>();
+        for(CourseDto courseDto: courseDtos) {
+            List<CourseTimeResponse> courseTimeResponses = new ArrayList<>();
+            for(CourseTimeDto courseTimeDto :
+                    excelReadService.parsingCourseTime(courseDto.getCourseTime())) {
+                CourseTimeResponse courseTimeResponse = CourseTimeResponse.builder()
+                        .day(courseTimeDto.getDay())
+                        .startTime(courseTimeDto.getStartTime())
+                        .endTime(courseTimeDto.getEndTime())
+                        .location(courseTimeDto.getLocation())
+                        .build();
+                courseTimeResponses.add(courseTimeResponse);
+            }
+            CourseResponse courseResponse = CourseResponse.builder()
+                    .code(courseDto.getCode())
+                    .room(courseDto.getRoom())
+                    .name(courseDto.getName())
+                    .grade(courseDto.getGrade())
+                    .credit(courseDto.getCredit())
+                    .professor(courseDto.getProfessor())
+                    .department(courseDto.getDepartment())
+                    .courseTimeResponses(courseTimeResponses)
+                    .build();
+            courseResponses.add(courseResponse);
+        }
+        return courseResponses;
+    }
+
+    public List<CourseResponse> getAllCourseByYearAndSemesterUsingExcelData(Long year, Long semester) throws ParseException, IOException, URISyntaxException {
         // 강의계획 open api 결과
         List<CourseDto> courseDtos = cnuSyllabusAPI.getCourseList(year, semester);
         System.out.println("courseDtos.size = " + courseDtos.size());
