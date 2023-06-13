@@ -61,7 +61,7 @@ public class CourseProcessService {
     public List<CourseResponse> getAllCourseByYearAndSemesterUsingExcelData(Long year, Long semester) throws ParseException, IOException, URISyntaxException {
         // 강의계획 open api 결과
         List<CourseDto> courseDtos = cnuSyllabusAPI.getCourseList(year, semester);
-        System.out.println("courseDtos.size = " + courseDtos.size());
+
         // 엑셀 강의편람 결과
         Map<String, ExcelDto> excelDtoMap = excelReadService.read(year, semester);
 

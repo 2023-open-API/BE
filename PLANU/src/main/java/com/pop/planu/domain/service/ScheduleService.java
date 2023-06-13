@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import java.util.List;
 @Transactional(readOnly = false)
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
+    private final CNUElearningCrawlerService crawlerService;
     private final MemberRepository memberRepository;
 
     @Transactional
@@ -37,6 +39,38 @@ public class ScheduleService {
     }
 
     public List<ScheduleResponse> getMonthlySchedule(Long memberId, LocalDate monthDate){
+        // 테이블에서 가져오기
+        List<ScheduleResponse> fromScheduleTable = getFromScheduleTable(memberId, monthDate);
+
+        // 이러닝 todolist 크롤링 해오기
+        List<ScheduleResponse> fromCrawler = getFromCrawler(memberId, monthDate);
+        System.out.println("table data 수 : "+fromScheduleTable.size() + " crawler : "+fromCrawler.size());
+
+        // 두개 결과 합치기
+        fromScheduleTable.addAll(fromCrawler);
+        return fromScheduleTable;
+    }
+
+    private List<ScheduleResponse> getFromCrawler(Long memberId, LocalDate monthDate) {
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new IdNotFoundException("회원을 찾을 수 없습니다."));
+        List<ScheduleResponse> crawlingList = crawlerService.getTodoList(member.getStudentId().toString(), member.getPassword());
+
+        LocalDate startOfMonth = monthDate.withDayOfMonth(1);
+        LocalDate endOfMonth = monthDate.withDayOfMonth(1).plusMonths(1).minusDays(1);
+
+        List<ScheduleResponse> fromCrawler = new ArrayList<>();
+        // 크롤링 데이터는 startDate == endDate
+        for(ScheduleResponse response: crawlingList) {
+            LocalDate strDate = LocalDate.parse(response.getStartDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")) ;
+            if(strDate.compareTo(startOfMonth) >= 0 && strDate.compareTo(endOfMonth) <= 0) {
+                fromCrawler.add(response);
+            }
+        }
+        return fromCrawler;
+    }
+
+
+    private List<ScheduleResponse> getFromScheduleTable(Long memberId, LocalDate monthDate) {
         LocalDate startOfMonth = monthDate.withDayOfMonth(1);
         LocalDate endOfMonth = monthDate.withDayOfMonth(1).plusMonths(1).minusDays(1);
 
@@ -56,18 +90,17 @@ public class ScheduleService {
         scheduleList.forEach(
                 (schedule -> {
                     scheduleResponsesList.add(
-                     ScheduleResponse.builder()
-                             .scheduleId(schedule.getScheduleId())
-                             .title(schedule.getTitle())
-                             .color(schedule.getColor())
-                             .startDate(schedule.getStartDate().toString())
-                             .endDate(schedule.getEndDate().toString())
-                             .build()
+                            ScheduleResponse.builder()
+                                    .scheduleId(schedule.getScheduleId())
+                                    .title(schedule.getTitle())
+                                    .color(schedule.getColor())
+                                    .startDate(schedule.getStartDate().toString())
+                                    .endDate(schedule.getEndDate().toString())
+                                    .build()
                     );
                 })
         );
         return scheduleResponsesList;
-
     }
 
     public ScheduleResponse getScheduleById(Long scheduleId){
