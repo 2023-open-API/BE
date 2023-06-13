@@ -43,6 +43,7 @@ public class CNUElearningCrawlerService {
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--ignore-ssl-errors=yes");
         options.addArguments("--ignore-certificate-errors");
+        options.addArguments("--remote-debugging-port=9222");
 
 
         base_url = "https://dcs-lcms.cnu.ac.kr/login?redirectUrl=https://dcs-learning.cnu.ac.kr/";
