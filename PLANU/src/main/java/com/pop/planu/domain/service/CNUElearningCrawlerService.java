@@ -39,6 +39,7 @@ public class CNUElearningCrawlerService {
         options.addArguments("--disable-notifications");
         options.addArguments("--disable-blink-features=AutomationControlled");
         options.addArguments("--remote-allow-origins=*");
+        options.addArguments("--single-process");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--ignore-ssl-errors=yes");
         options.addArguments("--ignore-certificate-errors");

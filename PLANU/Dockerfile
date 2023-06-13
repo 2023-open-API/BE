@@ -7,6 +7,7 @@ RUN apt -y install curl
 
 # google chrome 설치
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+RUN apt-get -y update
 RUN apt -y install ./google-chrome-stable_current_amd64.deb
 
 # chromedriver 설치
