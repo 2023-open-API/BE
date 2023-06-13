@@ -23,8 +23,7 @@ public class CNUElearningCrawlerService {
 
     //Properties
     private final String WEB_DRIVER_ID = "webdriver.chrome.driver";
-    @Value("${spring.driver.path}")
-    private String WEB_DRIVER_PATH;
+    private String WEB_DRIVER_PATH = "chromedriver";
 
     //크롤링 할 URL
     private String base_url;
