@@ -23,7 +23,8 @@ public class CNUElearningCrawlerService {
 
     //Properties
     private final String WEB_DRIVER_ID = "webdriver.chrome.driver";
-    private String WEB_DRIVER_PATH = "chromedriver";
+//    private String WEB_DRIVER_PATH = "chromedriver";
+    private String WEB_DRIVER_PATH = "C:/Users/MIRAE/CNU_LectureMaterial/2023/2023 CNU 공공데이터 경진대회/repos/selenium/chromedriver_win32/chromedriver.exe";
 
     //크롤링 할 URL
     private String base_url;
@@ -47,8 +48,6 @@ public class CNUElearningCrawlerService {
         options.addArguments("--ignore-certificate-errors");
         options.addArguments("--remote-debugging-port=9222");
 
-
-
         base_url = "https://dcs-lcms.cnu.ac.kr/login?redirectUrl=https://dcs-learning.cnu.ac.kr/";
     }
 
@@ -65,12 +64,12 @@ public class CNUElearningCrawlerService {
         try {
             // 이러닝 사이트 접근
             driver.get(base_url);
+            Thread.sleep(3000);
 
             // 소속대학, id, password element
             WebElement univElement = driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > form > div > div.univ_select_box > a"));
             WebElement idElement = driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > form > div > div.inputbox > input.id_insert"));
             WebElement passwdElement = driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > form > div > div.inputbox > input.pw_insert"));
-            WebElement loginBtn = driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > form > div > div.inputbox > button"));
             Thread.sleep(3000);
 
             // 충남대 선택
@@ -81,14 +80,17 @@ public class CNUElearningCrawlerService {
             // 아이디 비밀번호 입력 -> 로그인
             idElement.sendKeys(id);
             passwdElement.sendKeys(password);
-            loginBtn.click();
+            Thread.sleep(2000);
+            driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > form > div > div.inputbox > button")).click();
 
             // 이러닝 입장 -> 투두 입장
+            Thread.sleep(3000);
             WebElement gotoTodoBtn = driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > div.todolist > a"));
             Thread.sleep(5000);
             gotoTodoBtn.click();
 
             // 투두 미완료 입장
+            Thread.sleep(3000);
             WebElement uncompletedBtn = driver.findElement(By.cssSelector("#learningTab > li:nth-child(4)"));
             Thread.sleep(4000);
             uncompletedBtn.click();
@@ -112,6 +114,7 @@ public class CNUElearningCrawlerService {
                 System.out.println("["+course+"] "+title + " : " + lastDay);
             }
         } catch (Exception e) {
+            System.out.println("크롤링 에러 : "+e.getMessage());
             return crawling(id,password);
         }
         return todoList;
