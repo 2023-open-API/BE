@@ -20,10 +20,14 @@ public class CourseTimeDto {
 
     private LocalTime endTime;
 
+    private String location;
+
     public CourseTime toEntity() {
         return CourseTime.builder()
                 .day(this.day)
                 .startTime(this.startTime)
-                .endTime(this.endTime).build();
+                .endTime(this.endTime)
+                .location(this.location)
+                .build();
     }
 }

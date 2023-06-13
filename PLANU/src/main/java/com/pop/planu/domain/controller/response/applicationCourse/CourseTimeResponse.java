@@ -21,4 +21,5 @@ public class CourseTimeResponse {
     @Schema(type = "string")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm", timezone = "Asia/Seoul")
     private LocalTime endTime;
+    private String location;
 }

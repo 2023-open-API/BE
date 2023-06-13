@@ -65,7 +65,7 @@ public class ExcelReadService {
         return data;
     }
 
-    private List<CourseTimeDto> parsingCourseTime(String str) {
+    public List<CourseTimeDto> parsingCourseTime(String str) {
         // ex) str : "월10:00~11:00(공5410), 수15:00~14:30"
         List<CourseTimeDto> courseTimeDtos = new ArrayList<>();
         if(str.equals("")) {
@@ -75,17 +75,20 @@ public class ExcelReadService {
         for(int i=0; i< times.length; i++) {
             String day = times[i].substring(0,1);
             String[] date;
+            String location = "";
             // 강의실 데이터 분리
             if(times[i].indexOf('(') == -1) {
                 date= times[i].substring(1).split("~");
             }
             else {
                 date= times[i].substring(1, times[i].indexOf('(')).split("~");
+                location = times[i].substring(times[i].indexOf('(')+1, times[i].indexOf(')'));
             }
             CourseTimeDto courseTimeDto = CourseTimeDto.builder()
                     .day(day)
                     .startTime(LocalTime.parse(date[0], DateTimeFormatter.ofPattern("HH:mm")))
                     .endTime(LocalTime.parse(date[1], DateTimeFormatter.ofPattern("HH:mm")))
+                    .location(location)
                     .build();
             courseTimeDtos.add(courseTimeDto);
         }
