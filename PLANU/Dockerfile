@@ -21,4 +21,4 @@ ADD PLANU/build/libs/PLANU-0.0.1-SNAPSHOT.jar planu.jar
 #ARG JAR_FILE=/build/libs/PLANU-0.0.1-SNAPSHOT.jar
 #COPY ${JAR_FILE} /planu.jar
 
-ENTRYPOINT ["java","-jar","-Dspring.profiles.active=local,jwt,cnu", "/planu.jar"
+ENTRYPOINT ["java","-jar","-Dspring.profiles.active=local,jwt,cnu", "/planu.jar"]
