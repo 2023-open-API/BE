@@ -46,6 +46,7 @@ dependencies {
     implementation 'org.apache.poi:poi:4.1.2'
     implementation 'org.apache.poi:poi-ooxml:4.1.2'
 
+
     // crawling
     // 기존 의존성
     implementation 'org.seleniumhq.selenium:selenium-java:4.10.0'
