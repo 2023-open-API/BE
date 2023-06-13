@@ -40,10 +40,13 @@ public class CNUElearningCrawlerService {
         options.addArguments("--disable-blink-features=AutomationControlled");
         options.addArguments("--remote-allow-origins=*");
         options.addArguments("--single-process");
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--ignore-ssl-errors=yes");
         options.addArguments("--ignore-certificate-errors");
         options.addArguments("--remote-debugging-port=9222");
+
 
 
         base_url = "https://dcs-lcms.cnu.ac.kr/login?redirectUrl=https://dcs-learning.cnu.ac.kr/";
