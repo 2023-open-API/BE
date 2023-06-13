@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class CourseProcessRestController {
 
     @GetMapping("/applicationCourse/{year}/{semester}")
     @Operation(summary = "전체 강의 조회", description = "강의계획 api & 수강편람.xlxs 매치된 강의 조회")
-    public ResponseEntity<List<CourseResponse>> getCourses(@PathVariable Long year, @PathVariable Long semester) throws ParseException, IOException, URISyntaxException {
+    public ResponseEntity<List<CourseResponse>> getCourses(@PathVariable Long year, @PathVariable Long semester) throws ParseException, UnsupportedEncodingException {
         List<CourseResponse> courseResponses = courseProcessService.getAllCourseByYearAndSemester(year, semester);
         return ResponseEntity.ok(courseResponses);
     }

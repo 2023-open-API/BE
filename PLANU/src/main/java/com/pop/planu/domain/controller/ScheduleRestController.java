@@ -3,6 +3,7 @@ package com.pop.planu.domain.controller;
 import com.pop.planu.domain.auth.AuthMember;
 import com.pop.planu.domain.controller.request.schedule.ScheduleRequest;
 import com.pop.planu.domain.controller.response.schedule.ScheduleResponse;
+import com.pop.planu.domain.service.CNUElearningCrawlerService;
 import com.pop.planu.domain.service.ScheduleService;
 import com.pop.planu.global.web.argumentresolver.Auth;
 import io.swagger.v3.oas.annotations.Operation;
@@ -63,5 +64,4 @@ public class ScheduleRestController {
         Long deleteId = scheduleService.delete(scheduleId);
         return ResponseEntity.ok(deleteId);
     }
-
 }
