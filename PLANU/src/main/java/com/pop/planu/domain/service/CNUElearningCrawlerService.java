@@ -55,37 +55,43 @@ public class CNUElearningCrawlerService {
     public List<ScheduleResponse> getTodoList(String id, String password) {
         //Driver SetUp
         driver = new ChromeDriver(options);
+        List<ScheduleResponse> crawlingList = crawling(id, password);
+        driver.close();
+        return crawlingList;
+    }
+
+    private List<ScheduleResponse> crawling(String id, String password) {
         List<ScheduleResponse> todoList = new ArrayList<>();
         try {
             // 이러닝 사이트 접근
             driver.get(base_url);
-            Thread.sleep(4000);
 
-            // 소속대학 선택
-            driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > form > div > div.univ_select_box > a"))
-                    .click();
+            // 소속대학, id, password element
+            WebElement univElement = driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > form > div > div.univ_select_box > a"));
+            WebElement idElement = driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > form > div > div.inputbox > input.id_insert"));
+            WebElement passwdElement = driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > form > div > div.inputbox > input.pw_insert"));
+            WebElement loginBtn = driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > form > div > div.inputbox > button"));
+            Thread.sleep(3000);
+
             // 충남대 선택
-            driver.findElement(By.cssSelector("#drawUniv_list > li:nth-child(4) > a > span.univ_name"))
-                    .click();
+            univElement.click();
+            WebElement cnuBtn = driver.findElement(By.cssSelector("#drawUniv_list > li:nth-child(4) > a > span.univ_name"));
+            cnuBtn.click();
+
             // 아이디 비밀번호 입력 -> 로그인
-            driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > form > div > div.inputbox > input.id_insert"))
-                    .sendKeys(id);
-            driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > form > div > div.inputbox > input.pw_insert"))
-                    .sendKeys(password);
-            driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > form > div > div.inputbox > button"))
-                    .click();
-            Thread.sleep(5000);
+            idElement.sendKeys(id);
+            passwdElement.sendKeys(password);
+            loginBtn.click();
 
             // 이러닝 입장 -> 투두 입장
-            driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > div.todolist > a"))
-                    .click();
+            WebElement gotoTodoBtn = driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > div.todolist > a"));
             Thread.sleep(5000);
-
+            gotoTodoBtn.click();
 
             // 투두 미완료 입장
-            driver.findElement(By.cssSelector("#learningTab > li:nth-child(4)"))
-                    .click();
-            Thread.sleep(5000);
+            WebElement uncompletedBtn = driver.findElement(By.cssSelector("#learningTab > li:nth-child(4)"));
+            Thread.sleep(4000);
+            uncompletedBtn.click();
 
             // 투두 목록 수집
             List<WebElement> elements = driver.findElements(By.className("todoLR"));
@@ -106,10 +112,8 @@ public class CNUElearningCrawlerService {
                 System.out.println("["+course+"] "+title + " : " + lastDay);
             }
         } catch (Exception e) {
-            driver.close();
-            return getTodoList(id,password);
+            return crawling(id,password);
         }
-        driver.close();
         return todoList;
     }
 }
