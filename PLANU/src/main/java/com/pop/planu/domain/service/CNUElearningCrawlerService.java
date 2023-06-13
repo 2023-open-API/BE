@@ -1,13 +1,12 @@
 package com.pop.planu.domain.service;
 
 import com.pop.planu.domain.controller.response.schedule.ScheduleResponse;
-import com.pop.planu.domain.controller.response.todo.TodoResponse;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,8 +22,9 @@ public class CNUElearningCrawlerService {
     private ChromeOptions options;
 
     //Properties
-    public static final String WEB_DRIVER_ID = "webdriver.chrome.driver";
-    public static final String WEB_DRIVER_PATH = "chromedriver";
+    private final String WEB_DRIVER_ID = "webdriver.chrome.driver";
+    @Value("${spring.driver.path}")
+    private String WEB_DRIVER_PATH;
 
     //크롤링 할 URL
     private String base_url;
