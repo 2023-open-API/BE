@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -40,16 +41,18 @@ public class ScheduleService {
         LocalDate startOfMonth = monthDate.withDayOfMonth(1);
         LocalDate endOfMonth = monthDate.withDayOfMonth(1).plusMonths(1).minusDays(1);
 
-        List<Schedule> scheduleList_SLTELTE = scheduleRepository
-                .findByStartDateLessThanEqualAndEndDateLessThanEqualAndMemberId(
+        List<Schedule> scheduleList_start_in_month = scheduleRepository
+                .findByStartDateGreaterThanEqualAndStartDateLessThanEqualAndMemberId(
                         startOfMonth, endOfMonth,memberId);
-        List<Schedule> scheduleList_SGTEETE = scheduleRepository
-                .findByStartDateGreaterThanEqualAndEndDateLessThanEqualAndMemberId(
+        List<Schedule> scheduleList_end_in_month = scheduleRepository
+                .findByEndDateGreaterThanEqualAndEndDateLessThanEqualAndMemberId(
                         startOfMonth, endOfMonth,memberId);
-        List<Schedule> scheduleList = new ArrayList<>();
 
-        scheduleList.addAll(scheduleList_SLTELTE);
-        scheduleList.addAll(scheduleList_SGTEETE);
+        HashSet<Schedule> scheduleSet = new HashSet<>();
+        scheduleSet.addAll(scheduleList_start_in_month);
+        scheduleSet.addAll(scheduleList_end_in_month);
+
+        List<Schedule> scheduleList = new ArrayList<>(scheduleSet);
 
 
         List<ScheduleResponse> scheduleResponsesList = new ArrayList<>();
