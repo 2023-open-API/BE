@@ -96,7 +96,9 @@ public class CNUElearningCrawlerService {
             uncompletedBtn.click();
 
             // 투두 목록 수집
+            Thread.sleep(4000);
             List<WebElement> elements = driver.findElements(By.className("todoLR"));
+            System.out.println("크롤링 총 과제 개수 : "+elements.size());
             for(WebElement element: elements) {
                 String text = element.findElement(By.tagName("a")).getText();
                 String course = text.substring(1, text.indexOf('('));

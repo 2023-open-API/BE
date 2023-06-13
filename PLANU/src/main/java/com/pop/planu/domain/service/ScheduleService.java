@@ -44,6 +44,7 @@ public class ScheduleService {
 
         // 이러닝 todolist 크롤링 해오기
         List<ScheduleResponse> fromCrawler = getFromCrawler(memberId, monthDate);
+        System.out.println("table data 수 : "+fromScheduleTable.size() + " crawler : "+fromCrawler.size());
 
         // 두개 결과 합치기
         fromScheduleTable.addAll(fromCrawler);
