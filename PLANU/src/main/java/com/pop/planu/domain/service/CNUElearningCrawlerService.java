@@ -68,12 +68,12 @@ public class CNUElearningCrawlerService {
             Thread.sleep(3000);
 
             // 소속대학, id, password element
-            WebElement univElement = driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > form > div > div.univ_select_box > a"));
             WebElement idElement = driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > form > div > div.inputbox > input.id_insert"));
             WebElement passwdElement = driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > form > div > div.inputbox > input.pw_insert"));
             Thread.sleep(3000);
 
             // 충남대 선택
+            WebElement univElement = driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > form > div > div.univ_select_box > a"));
             univElement.click();
             WebElement cnuBtn = driver.findElement(By.cssSelector("#drawUniv_list > li:nth-child(4) > a > span.univ_name"));
             cnuBtn.click();
