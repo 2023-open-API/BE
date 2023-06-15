@@ -56,7 +56,7 @@ public class CNUElearningCrawlerService {
         //Driver SetUp
         driver = new ChromeDriver(options);
         List<ScheduleResponse> crawlingList = crawling(id, password, 1);
-        driver.close();
+        driver.quit();
         return crawlingList;
     }
 
