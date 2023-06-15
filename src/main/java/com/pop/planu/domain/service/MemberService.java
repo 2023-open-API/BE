@@ -47,7 +47,8 @@ public class MemberService {
         if(!findMember.matchPassword(password)){
             throw new PasswordMismatchException("비밀번호가 일치하지 않습니다.");
         }
-        return TokenDto.builder().token(jwtTokenProvider.createToken(findMember)).build();
+        return TokenDto.builder().token(jwtTokenProvider.createToken(findMember))
+                .name(findMember.getName()).build();
     }
 
 }
