@@ -118,6 +118,9 @@ public class CNUElearningCrawlerService {
                 todoList.add(todo);
                 System.out.println("["+course+"] "+title + " : " + lastDay);
             }
+            // 로그아웃
+            driver.findElement(By.xpath("//*[@id=\"wrapper\"]/div[2]/div/ul[1]/li[2]/a")).click();
+            driver.findElement(By.xpath("//*[@id=\"wrapper\"]/div[2]/div/ul[1]/li[2]/div/a[3]")).click();
         } catch (Exception e) {
             System.out.println("크롤링 에러 : "+e.getMessage());
             return crawling(id,password, cnt+1);
