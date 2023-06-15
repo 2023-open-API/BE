@@ -53,14 +53,16 @@ public class CNUElearningCrawlerService {
     public List<ScheduleResponse> getTodoList(String id, String password) {
         //Driver SetUp
         driver = new ChromeDriver(options);
-        List<ScheduleResponse> crawlingList = crawling(id, password);
+        List<ScheduleResponse> crawlingList = crawling(id, password, 1);
         driver.quit();
         return crawlingList;
     }
 
-    private List<ScheduleResponse> crawling(String id, String password) {
+    private List<ScheduleResponse> crawling(String id, String password, int cnt) {
         List<ScheduleResponse> todoList = new ArrayList<>();
+        if(cnt==10) return todoList;
         try {
+            Thread.sleep(3000);
             // 이러닝 사이트 접근
             driver.get(base_url);
             Thread.sleep(3000);
@@ -91,11 +93,11 @@ public class CNUElearningCrawlerService {
             // 투두 미완료 입장
             Thread.sleep(3000);
             WebElement uncompletedBtn = driver.findElement(By.cssSelector("#learningTab > li:nth-child(4)"));
-            Thread.sleep(4000);
+            Thread.sleep(2000);
             uncompletedBtn.click();
 
             // 투두 목록 수집
-            Thread.sleep(4000);
+            Thread.sleep(2000);
             List<WebElement> elements = driver.findElements(By.className("todoLR"));
             System.out.println("크롤링 총 과제 개수 : "+elements.size());
             for(WebElement element: elements) {
@@ -116,7 +118,7 @@ public class CNUElearningCrawlerService {
             }
         } catch (Exception e) {
             System.out.println("크롤링 에러 : "+e.getMessage());
-            return crawling(id,password);
+            return crawling(id,password, cnt+1);
         }
         return todoList;
     }
