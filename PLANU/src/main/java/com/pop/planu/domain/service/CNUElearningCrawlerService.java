@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -54,7 +56,7 @@ public class CNUElearningCrawlerService {
         //Driver SetUp
         driver = new ChromeDriver(options);
         List<ScheduleResponse> crawlingList = crawling(id, password, 1);
-        driver.quit();
+        driver.close();
         return crawlingList;
     }
 
@@ -68,25 +70,25 @@ public class CNUElearningCrawlerService {
             Thread.sleep(3000);
 
             // 소속대학, id, password element
-            WebElement idElement = driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > form > div > div.inputbox > input.id_insert"));
-            WebElement passwdElement = driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > form > div > div.inputbox > input.pw_insert"));
+            WebElement idElement = driver.findElement(By.xpath("//*[@id=\"wrapper\"]/div[2]/div/div/div[3]/div/form/div/div[2]/input[1]"));
+            WebElement passwdElement = driver.findElement(By.xpath("//*[@id=\"wrapper\"]/div[2]/div/div/div[3]/div/form/div/div[2]/input[2]"));
             Thread.sleep(3000);
 
             // 충남대 선택
-            WebElement univElement = driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > form > div > div.univ_select_box > a"));
+            WebElement univElement = driver.findElement(By.xpath("//*[@id=\"wrapper\"]/div[2]/div/div/div[3]/div/form/div/div[1]/a"));
             univElement.click();
-            WebElement cnuBtn = driver.findElement(By.cssSelector("#drawUniv_list > li:nth-child(4) > a > span.univ_name"));
+            WebElement cnuBtn = driver.findElement(By.xpath("//*[@id=\"drawUniv_list\"]/li[4]/a/span[2]"));
             cnuBtn.click();
 
             // 아이디 비밀번호 입력 -> 로그인
             idElement.sendKeys(id);
             passwdElement.sendKeys(password);
             Thread.sleep(2000);
-            driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > form > div > div.inputbox > button")).click();
+            driver.findElement(By.xpath("//*[@id=\"wrapper\"]/div[2]/div/div/div[3]/div/form/div/div[2]/button")).click();
 
             // 이러닝 입장 -> 투두 입장
             Thread.sleep(3000);
-            WebElement gotoTodoBtn = driver.findElement(By.cssSelector("#wrapper > div.main_top > div > div > div.main_loginbox > div > div.todolist > a"));
+            WebElement gotoTodoBtn = driver.findElement(By.xpath("//*[@id=\"wrapper\"]/div[2]/div/div/div[3]/div/div[3]/a"));
             Thread.sleep(5000);
             gotoTodoBtn.click();
 
